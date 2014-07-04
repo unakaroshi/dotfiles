@@ -20,10 +20,12 @@
 	spellingdictionary = en
 
 [url "git@github.com:unakaroshi/"]
-  insteadOf = github: 
-  insteadOf = Github:
   insteadOf = unakaroshi:
   insteadOf = karoshi:
+
+[url "git@github.com:"]
+  insteadOf = github: 
+  insteadOf = Github:
 
 #
 # Allgemeine Farben
