@@ -1,0 +1,9 @@
+[default]
+# Write your default config options here!
+fs=yes
+#double=yes
+#idx=yes
+zoom=yes
+stop-xscreensaver=yes
+
+
