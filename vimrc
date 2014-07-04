@@ -1,10 +1,10 @@
+set nocompatible
 let mapleader=","
 let maplocalleader="\\"
 
 " =====================================================================
 " Configure Vundle
 " http://github.com/gmarik/Vundle.vim
-set nocompatible
 filetype off
 
 " set the runtime path to include Vundle and initialize
@@ -39,6 +39,9 @@ Plugin 'mattn/emmet-vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'jammy.vim'
+Plugin 'a.vim'
+Plugin 'c.vim'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
@@ -73,7 +76,7 @@ filetype plugin on
 
 
 " Pathogen for the plugins which are not handled by Vundle
-execute pathogen#infect()
+"execute pathogen#infect()
 
 " Configuration for TList
 let Tlist_Show_Menu=1
@@ -419,6 +422,6 @@ set bg=dark
 
 " Only on terminal use the solarized colorscheme
 if !has('gui_running')
-  colors jammy
+  colors solarized
 endif
 "       vim:tw=70 et sw=4 comments=\:\"
