@@ -116,7 +116,7 @@ export ANDROID_NDK_HOME=/opt/android-ndk-r9c
 export JAVA_HOME=/opt/jdk1.7.0.45
 export ANDROIDSDK=$HOME/android-sdk-linux
 export PATH=$PATH:$HOME/bin:$ANDROIDSDK/tools:$ANDROIDSDK/platform-tools
-export CALIBRE_DEVELOP_FROM=$HOME/dev/calibre/src
+export CALIBRE_DEVELOP_FROM=$HOME/src/calibre/src
 
 
 gitprompt
