@@ -251,3 +251,5 @@
 
 [diff "word"]
 	textconv = catdoc
+[clean]
+	requireForce = false
