@@ -88,6 +88,8 @@
 # Alias Definitionen
 #
 [alias]
+  # Show "assumed-unchanged" files
+  ignored = !git ls-files -v | grep "^[[:lower:]]"
   # Change last commit message
   recommit = commit --amend
 
