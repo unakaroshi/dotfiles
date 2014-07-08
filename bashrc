@@ -112,10 +112,11 @@ export HISTSIZE=5000
 export HISTFILESIZE=5000
 export HISTIGNORE='&:[ ]*' # omit dups & lines starting with space
 
+export QTDIR=/opt/Qt5.2.0/5.2.0/gcc
 export ANDROID_NDK_HOME=/opt/android-ndk-r9c
 export JAVA_HOME=/opt/jdk1.7.0.45
 export ANDROIDSDK=$HOME/android-sdk-linux
-export PATH=$PATH:$HOME/bin:$ANDROIDSDK/tools:$ANDROIDSDK/platform-tools
+export PATH=$PATH:$HOME/bin:$QTDIR/bin:$ANDROIDSDK/tools:$ANDROIDSDK/platform-tools
 export CALIBRE_DEVELOP_FROM=$HOME/src/calibre/src
 
 
