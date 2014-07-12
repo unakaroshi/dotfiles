@@ -204,8 +204,8 @@ map <silent> <F1> :NERDTreeToggle<CR>
 imap <silent> <F1> <ESC>:NERDTreeToggle<CR>i
 
 " BufferExplorer with F2
-map <silent> <F2> :BufferExplorer<CR>
-imap <silent> <F2> <ESC>:BufferExplorer<CR>
+map <silent> <F2> :BufExplorer<CR>
+imap <silent> <F2> <ESC>:BufExplorer<CR>
 
 
 " F3 shows every line in which the word under the cursor appears.
