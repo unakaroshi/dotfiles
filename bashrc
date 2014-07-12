@@ -20,16 +20,12 @@
 # Source global definitions (if any)
 #-----------------------------------
 
-if [ -f /etc/bash.bashrc ]; then
-  . /etc/bash.bashrc   # --> Read /etc/bashrc, if present.
-fi
+for file in /etc/{bash.bashrc,bash_completion}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file"
+done
+unset file
 
-if [ -f $HOME/.git-prompt.sh ]; then
-  . $HOME/.git-prompt.sh
-fi
-
-
-for file in ~/.{bash_aliases,bash_functions,dircolors.sh}; do
+for file in ~/.{bash_aliases,bash_functions,bash_completion,dircolors.sh,git-prompt}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
