@@ -97,9 +97,17 @@
   conflicts = diff --name-only --diff-filter=U
 
   # show diff only for files stages to commit
-  new = diff --cached
   staged = diff --cached
 
+  # Prints out the currentbranch name (useful for scripts)
+  currentbranch = !git branch | grep '^\\*' | sed 's/^\\* //'
+  cb = !git currentbranch
+
+  # List the last 2 tags of current branch
+  lt = !git latesttags
+  latesttags = !git log --simplify-by-decoration --pretty='%H' -n 3        \
+    `git branch | grep '^\\*' | sed 's/^\\* //'`                           \
+    | xargs -n1 git describe --tags --exact-match 2>/dev/null | head -n2
 
   # Just shortcuts
   br = branch
@@ -163,93 +171,3 @@
 
   # Find commits by commit message
   fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
-
-[diff "word"]
-	textconv = catdoc
-# Der Garbage Collector soll automatisch aufräumen
-#
-[gc]
-  auto = 1
-
-#
-# Alias Definitionen
-#
-[alias]
-  # Change last commit message
-  recommit = commit --amend
-
-  # show list of files that have a merge conflict
-  conflicts = diff --name-only --diff-filter=U
-
-  # show diff only for files stages to commit
-  new = diff --cached
-  staged = diff --cached
-
-
-  # Just shortcuts
-  br = branch
-  ci = commit
-  co = checkout
-  df = diff
-  st = status -uno
-  stat = status -uno
-
-  # Log, what was done by me the last day, week, month, year
-  daily = log --since='{1 day ago}' --oneline --author=roehrl@arges.de
-  weekly = log --since='{1 week ago}' --oneline --author=roehrl@arges.de
-  monthly = log --since='{1 month ago}' --oneline --author=roehrl@arges.de
-  yearly = log --since='{1 year ago}' --oneline --author=roehrl@arges.de
-
-
-  # See the last changes in different formats
-  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate 
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-
-  # Other nice logging functions
-  log = log --graph --pretty=format:'%Cred%h%Creset-%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --date=relative 
-  filelog = log -u
-  fl = log -u
-
-
-  # See, who has done commits/pushs in this repository
-  who = shortlog -s --
-
-  # List all aliases
-  aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
-
-  # grep on filename
-  f = "!git ls-files | grep -i"
-
-
-  changelog = log --no-merges --not master
-  current = log -n 1 --abbrev-commit
-  new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
-  graph = log --graph --pretty=format:'%Cred%h%Creset-%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit --date=relative 
-  graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
-  find = "!git ls-files | grep -i"
-  gr = grep -Ii
-
-  #
-  # List Tags, Branches, Remotes...
-  #
-  tags = tag -l
-  branches = branch -a
-  remotes = remote -v
-
-  # Find branches containing commit
-  fb = "!f() { git branch -a --contains $1; }; f"
-
-  # Find tags containing commit
-  ft = "!f() { git describe --always --contains $1; }; f"
-
-  # Find commits by source code
-  fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
-
-  # Find commits by commit message
-  fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
-
-[diff "word"]
-	textconv = catdoc
-[clean]
-	requireForce = false
