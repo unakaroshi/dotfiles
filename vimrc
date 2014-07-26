@@ -1,83 +1,78 @@
-set nocompatible
 let mapleader=","
-let maplocalleader="\\"
+let maplocalleader=","
 
+" Some platform specific stuff that has to be done before Vundle"{{{
+if has("dos16") || has("dos32") || has("windows") || has("win32")
+    let path='~/vimfiles/bundle'
+    let shell='command.com'
+    set runtimepath+=~/vimfiles
+    set runtimepath+=~/vimfiles/bundle/Vundle.vim
+    set backupdir=C:\temp
+endif
+if has("unix")
+    let &shell="bash\ -l"
+    set runtimepath+=~/.vim/bundle/Vundle.vim
+    set backupdir=$HOME/.vimbackup
+    set tags=$HOME/src/IS3/ARG_ControllerLib/tags
+    let g:C_GlobalTemplateFile = '$HOME/.vim/bundle/c.vim/c-support/templates/Templates'
+    let g:C_Dictionary_File = '$HOME/.vim/bundle/c.vim/c-support/wordlists/c-c++-keywords.list,'.
+                            \ '$HOME/.vim/bundle/c.vim/c-support/wordlists/k+r-keywords.list,'.
+                            \ '$HOME/.vim/bundle/c.vim/c-support/wordlists/stl_index.list'
+endif"}}}
+
+"Vundle  {{{
 " =====================================================================
 " Configure Vundle
 " http://github.com/gmarik/Vundle.vim
+set nocompatible
 filetype off
-
+"
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-airline'
-Plugin 'corntrace/bufexplorer'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'TaskList.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-dispatch'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tsaleh/vim-supertab'
-Plugin 'SearchComplete'
-Plugin 'matchit.zip'
-"Plugin 'msanders/snipmate.vim'
-Plugin 'christoomey/vim-space'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'mhinz/vim-startify'
-Plugin 'mbbill/undotree'
 Plugin 'AndrewRadev/sideways.vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jammy.vim'
-Plugin 'a.vim'
-Plugin 'c.vim'
-
-" plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
+Plugin 'Raimondi/delimitMate'
+Plugin 'SearchComplete'
+Plugin 'TaskList.vim'
+Plugin 'a.vim'
+Plugin 'bling/vim-airline'
+Plugin 'c.vim'
+Plugin 'corntrace/bufexplorer'
+Plugin 'jammy.vim'
+Plugin 'jonathanfilip/vim-lucius'
+Plugin 'kien/ctrlp.vim'
+Plugin 'matchit.zip'
+Plugin 'mattn/emmet-vim'
+Plugin 'mbbill/undotree'
+Plugin 'mhinz/vim-startify'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tsaleh/vim-supertab'
 
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
+if has("ruby")
+  Plugin 'wincent/Command-T'
+endif
+
+if has("unix")
+  Plugin 'Valloric/YouCompleteMe'
+endif
 
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-
-syntax on
-filetype on
 filetype plugin on
+syntax on
+filetype on"}}}
 
-
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList          - list configured plugins
-" :PluginInstall(!)    - install (update) plugins
-" :PluginSearch(!) foo - search (or refresh cache first) for foo
-" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"====================================================================
-
-
-
-
-" Pathogen for the plugins which are not handled by Vundle
-"execute pathogen#infect()
-
+" Variables"{{{
 " Configuration for TList
 let Tlist_Show_Menu=1
 
@@ -97,27 +92,20 @@ let g:bufExplorerShowRelativePath=1
 " Grep should not look in the following directories
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated .git'
 
-" C-Plugin configuration
-let g:C_GlobalTemplateFile = '/home/roehrl/.vim/c-support/templates/Templates'
-let g:C_Dictionary_File = '/home/roehrl/.vim/c-support/wordlists/c-c++-keywords.list,'.
-                        \ '/home/roehrl/.vim/c-support/wordlists/k+r-keywords.list,'.
-                        \ '/home/roehrl/.vim/c-support/wordlists/stl_index.list,'.
-                        \ '/home/roehrl/.vim/c-support/wordlists/NyC.list'
-
 " Nerdtree Configuration
-let NERDTreeIgnore=['\.d$', '\.o$', '\~$']
+let NERDTreeIgnore=['\.d$', '\.o$', '\~$']"}}}
 
-
-
-
+" Settings"{{{
 set autoindent
 set autoread
 set autowrite
+set background=dark
 set backspace=indent,eol,start
 set backup
-set backupdir=$HOME/.vimbackup
+set enc=utf-8
 set esckeys
 set expandtab
+set fenc=utf-8
 set ff=unix
 set ffs=unix
 set foldmethod=marker
@@ -146,7 +134,6 @@ set showmode
 set smartindent
 set t_vb=
 set tabstop=2
-set tags=/home/roehrl/src/ControllerLib/ARG_ControllerLib/tags
 set tagstack
 set textwidth=100
 set visualbell
@@ -164,91 +151,70 @@ set writebackup
 " Marken, command, input und search history. f1 heißt, daß globale Marken
 " gespeichert werden (A_Z0-9). Register werden nicht gespeichert, wäre mit
 " <500 möglich (500 Zeilen je Register)
-set viminfo='50,f1,:50,@50,/50
+set viminfo='50,f1,:50,@50,/50"}}}
 
+" Autocommands"{{{
+if has("autocmd")
+    augroup AutoCmds
+        autocmd!
+        " Insert Arges copyright
+        autocmd FileType cpp  :iab aarges /*<CR> Copyright (C) Arges GmbH<CR>      www.arges.de<ESC>jji
+        autocmd FileType c    :iab aarges /*<CR> Copyright (C) Arges GmbH<CR>      www.arges.de<ESC>jji
 
-" Configure the shell
-if has("dos16") || has("dos32")
-  let shell='command.com'
-endif
-if has("unix")
-  let &shell="bash\ -l"
-endif
+        " For Helpfiles I like a slightly changed keymapping:
+        " <Return> brings you to the tag under the cursor
+        " <BS> brings you back
+        autocmd FileType help call AuxHelpKeyMappings()
 
+        " In Makefiles show tabs
+        autocmd FileType make setlocal list listchars=tab:>-,trail:-
 
-augroup FileTypeGroup
-  au!
-  " For Helpfiles I like a slightly changed keymapping:
-  " <Return> brings you to the tag under the cursor
-  " <BS> brings you back
-  au FileType help call AuxHelpKeyMappings()
+        " I watch Logfiles usually without Linewrapping
+        autocmd BufNewFile,BufRead *.log setlocal nowrap
 
-  " I watch Logfiles usually without Linewrapping
-  au BufNewFile,BufRead *.log set nowrap
-  au BufNewFile,BufRead *.c inoremap { {<CR>}<ESC>O
-  au BufNewFile,BufRead *.c set ft=cpp
-  au BufNewFile,BufRead *.dox set syntax=cpp
-  au BufNewFile,BufRead *.cpp inoremap { {<CR>}<ESC>O
-  au BufNewFile,BufRead *.h inoremap { {<CR>}<ESC>O
-augroup END
+        " C-Files should be treated as CPP files
+        autocmd BufNewFile,BufRead *.c,*.h,*.cpp,*.hpp setlocal filetype=cpp.doxygen
 
+        " Doxygenfiles should be treated as doxygen files
+        autocmd BufNewFile,BufRead *.dox setlocal syntax=doxygen
 
-function! AuxHelpKeyMappings() range
-  nmap <buffer><silent><CR> <C-]>
-  nmap <buffer><silent><BS> <C-T>
-endfunction
+        " Remove trailing whitespaces on save for the following files:
+        autocmd BufWritePre *.c,*.cpp,*.h,*.dox,*.sh,.vimrc,.gvimrc,.bashrc,*.rb,*.py,*.java,*.pro,*.pri :call <SID>StripTrailingWhitespaces()
+    augroup END
+endif"}}}
 
-
+" Mappings {{{
 " NerdTree toggling with F1
-map <silent> <F1> :NERDTreeToggle<CR>
-imap <silent> <F1> <ESC>:NERDTreeToggle<CR>i
+noremap <silent> <F1> :NERDTreeToggle<CR>
+inoremap <silent> <F1> <ESC>:NERDTreeToggle<CR>i
+
+" UndoTree toggling with S-F1
+noremap <silent> <S-F1> :UndotreeToggle<CR>
+inoremap <silent> <S-F1> <ESC>:UndotreeToggle<CR>
 
 " BufferExplorer with F2
-map <silent> <F2> :BufExplorer<CR>
-imap <silent> <F2> <ESC>:BufExplorer<CR>
+noremap <silent> <F2> :BufExplorer<CR>
+inoremap <silent> <F2> <ESC>:BufExplorer<CR>
 
 
 " F3 shows every line in which the word under the cursor appears.
 " s-F3 shows the first appearance of the the word under the cursor.
-map <F3> [I
-map <S-F3> [i
-imap <F3> <ESC>[I
-imap <S-F3> <ESC>[i
+noremap <F3> [I
+noremap <S-F3> [i
+inoremap <F3> <ESC>[I
+inoremap <S-F3> <ESC>[i
 
-" Jump to Tags with F4 and jumb back from tags with Shift F4
-map <F4> <C-]>
-map <S-F4> <C-T>
-imap <F4> <ESC><C-]>i
-imap <S-F4> <ESC><C-T>i
-
-" Show Spaces at end of line and Tabs everywhere
-" by pressing F2 or F3
-map <F5> :set list<C-M>
-map <S-F5> :set nolist<C-M>
-imap <F5> <ESC>:set list<C-M>a
-imap <S-F5> <ESC>:set nolist<C-M>a
+noremap <silent> <F4> :Gstatus<CR>
+noremap <silent> <S-F4> :Gblame<CR>
 
 
-" Set fileencoding to utf-8
-vnoremap <F6> :set fenc=utf-8<CR>
+" When pressing F5 toggle the relativenumber-view
+noremap <silent> <F5> :set relativenumber!<CR>
+inoremap <silent> <F5> <ESC>:set relativenumber!<CR>i
 
 " F7 removes trailing whitespaces from whole file
-map <F7> :%s/\s\+$//<CR>
-imap <F7> <ESC>:%s/\s\+$//<CR>
-
-" Doxygencomment
-map <F8> :Dox<CR>
-imap <F8> <ESC>:Dox<CR>i
-
-" Comments
-" F9 Toggle the comment
-" Shift-F9 Inverts the comment
-map <F9> <plug>NERDCommenterToggle
-map <S-F9> <plug>NERDCommenterInvert
-vmap <F9> <plug>NERDCommenterToggle
-vmap <S-F9> <plug>NERDCommenterInvert
-imap <F9> <plug>NERDCommenterToggle
-vmap <S-F9> <plug>NERDCommenterInvert
+noremap <silent> <F6> :call <SID>StripTrailingWhitespaces<CR>
+inoremap <silent> <F6> :call <SID>StripTrailingWhitespaces<CR>i
 
 
 " Fuer folgende Sachen muss man auf der oeffnenden geschweiften
@@ -259,17 +225,21 @@ vmap <S-F9> <plug>NERDCommenterInvert
 " F10: NOTIFY_FUNCTION_CALL
 " F11: MOTIFY_CONSTRUCTOR
 " ShiftF12: NOTIFY_DESTRUCTOR
-map <F10> k0/::<CR>b"yyw"wy0nll"zyw/(<CR>v%"xyjoNOTIFY_FUNCTION_CALL(this, 5, "<ESC>"ypA", "<ESC>"zpA", "<ESC>"xpA", "<ESC>"wpA")<ESC>0/"<CR>nnnnlxnhx<ESC>:nohls<CR>0
-map <F11> k0/::<CR>b"yyw"wy0nll"zyw/(<CR>v%"xyjoNOTIFY_CONSTRUCTOR(5, "<ESC>"ypA", "<ESC>"xpA")<ESC>0/"<CR>2nlxnhx<ESC>:nohls<CR>0
-map <S-F11> k0/::<CR>b"yywnll"zyw/(<CR>v%"xyjoNOTIFY_DESTRUCTOR(5, "<ESC>"ypA")<ESC>:nohls<CR>0
+noremap <F10> k0/::<CR>b"yyw"wy0nll"zyw/(<CR>v%"xyjoNOTIFY_FUNCTION_CALL(this, 5, "<ESC>"ypA", "<ESC>"zpA", "<ESC>"xpA", "<ESC>"wpA")<ESC>0/"<CR>nnnnlxnhx<ESC>:nohls<CR>0
 
-" Insert Arges copyright
-map <F12> O/*<CR>Copyright (C) Arges GmbH<CR>      www.arges.de<ESC>jo<ESC>
-imap <F12> <ESC>O/*<CR>Copyright (C) Arges GmbH<CR>      www.arges.de<ESC>jo
+noremap <F11> k0/::<CR>b"yyw"wy0nll"zyw/(<CR>v%"xyjoNOTIFY_CONSTRUCTOR(5, "<ESC>"ypA", "<ESC>"xpA")<ESC>0/"<CR>2nlxnhx<ESC>:nohls<CR>0
+noremap <S-F11> k0/::<CR>b"yywnll"zyw/(<CR>v%"xyjoNOTIFY_DESTRUCTOR(5, "<ESC>"ypA")<ESC>:nohls<CR>0
+
 
 " Delete complete buffer
-map <c-d> 1GdG
-imap <c-d> <ESC>1GdGi
+noremap <c-d> 1GdG
+inoremap <c-d> <ESC>1GdGi
+
+noremap <leader>ev :split $MYVIMRC<CR>
+noremap <leader>sv :source $MYVIMRC<CR>
+
+" open the alternate file in split
+noremap <leader>a :AS<CR>
 
 " Yank entire buffer
 nnoremap gy :%y+<CR>
@@ -286,6 +256,15 @@ noremap L $
 
 " Easier Redo
 nnoremap U <C-r>
+
+" Space selects the current word
+noremap <SPACE> viw
+
+" - deletes the current line and places it one line below
+noremap - ddp
+
+" + deletes the current line and places it one line below
+noremap + ddkP
 
 " Highlight search word under cursor without jumping to next
 nnoremap <leader>h *<C-O>
@@ -305,44 +284,43 @@ nnoremap <silent> <leader>ul :t.\|s/./-/\|:nohls<cr>
 " Underline the current line with '='
 nnoremap <silent> <leader>uul :t.\|s/./=/\|:nohls<cr>
 
-
-
-
-
-
 " This reduces a range of empty lines into one line only
-map <leader>b GoZ<ESC>:g/^[ <TAB>]*$/,/[^ <TAB>]/-j<CR>Gdd
+noremap <leader>b GoZ<ESC>:g/^[ <TAB>]*$/,/[^ <TAB>]/-j<CR>Gdd
 
-" go to next window with SHIFT-TAB
-noremap <S-Tab> <C-W>w
-inoremap <S-Tab> <ESC><C-W>w
+" go to next window with TAB and to previous with Shift-TAB
+noremap <Tab> <C-W>w
+noremap <S-Tab> <C-W>W
+inoremap <Tab> <ESC><C-W>w
+inoremap <S-Tab> <ESC><C-W>W
+
+" CTRL-= will make all windows (almost) equaly high and wide
+noremap <C-=> <C-W>=
+inoremap <C-=> <C-W>=
+
+" ,+ will make the current window bigger, ,- will make it smaller
+noremap <silent> <leader>+:resize +10<CR>
+noremap <silent> <leader>- :resize -10<CR>
 
 nnoremap Q gq
 vnoremap Q gq
 
-map :alias map
-map :which map
+noremap :alias map
+noremap :which map
 
 " Insert line by pressing Enter in command-mode.
-nmap <CR> o<ESC>
-
-" make space move the cursor to the right - much better than a *beep*
-nmap \  l
+nnoremap <CR> o<ESC>
 
 " fast buffer switching:
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
 nnoremap <C-b> :bp<CR>
 
-" Klammern um das aktuelle Wort
-map <leader><leader> maa0<ESC>mbbma$a x<ESC>`awgebi(<ESC>ea)<ESC>$xx`blx`a
+" (Klammern) um das aktuelle Wort
+noremap <leader><leader> bi(<ESC>lea)<ESC>
+inoremap <leader><leader> <ESC>bi(<ESC>lea)
 
 " Join der aktuellen Zeile mit der naechsten.
 nnoremap J :let i=":normal ".col(".")."l"<CR>J0:execute i<CR>h
-
-inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-inoremap <expr> <c-n> pumvisible() ? "\<lt>c-n>" : "\<lt>c-n>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
-inoremap <expr> <m-;> pumvisible() ? "\<lt>c-n>" : "\<lt>c-x>\<lt>c-o>\<lt>c-n>\<lt>c-p>\<lt>c-r>=pumvisible() ? \"\\<lt>down>\" : \"\"\<lt>cr>"
 
 "  In visual mode when you press * or # to search for the current selection
 vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -350,15 +328,19 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 
 " When you press gv you vimgrep after the selected text
 vnoremap <silent> gv :call VisualSearch('gv')<CR>
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+noremap <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Clear search highlights in normal mode by hitting <ESC>
-noremap <silent> <esc> :noh<return><esc>
+"noremap <silent> <esc> :noh<return><esc>"}}}
 
-
+" Functions"{{{
+function! AuxHelpKeyMappings() range
+  noremap <buffer><silent><CR> <C-]>
+  noremap <buffer><silent><BS> <C-T>
+endfunction
 
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
@@ -386,9 +368,19 @@ function! VisualSearch(direction) range
     let @" = l:saved_reg
 endfunction
 
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction"}}}
 
-
-" Abbreviations
+" Abbreviations"{{{
 iab _i18n  internationalization
 iab alos      also
 iab aslo      also
@@ -414,14 +406,13 @@ iab ddate     <C-R>=strftime("%Y-%m-%d")<CR>
 " Some frequent typos in German:
 iab nciht     nicht
 iab doer      oder
-iab Michale   Michael
+iab Michale   Michael"}}}"}}}
 
-set enc=utf-8
-set fenc=utf-8
-set bg=dark
-
+" Colorscheme"{{{
 " Only on terminal use the solarized colorscheme
 if !has('gui_running')
   colors solarized
 endif
-"       vim:tw=70 et sw=4 comments=\:\"
+"}}}
+
+" vim:tw=70 et sw=4 nowrap comments=\:\"
