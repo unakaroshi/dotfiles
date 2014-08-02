@@ -230,6 +230,14 @@ noremap <F10> k0/::<CR>b"yyw"wy0nll"zyw/(<CR>v%"xyjoNOTIFY_FUNCTION_CALL(this, 5
 noremap <F11> k0/::<CR>b"yyw"wy0nll"zyw/(<CR>v%"xyjoNOTIFY_CONSTRUCTOR(5, "<ESC>"ypA", "<ESC>"xpA")<ESC>0/"<CR>2nlxnhx<ESC>:nohls<CR>0
 noremap <S-F11> k0/::<CR>b"yywnll"zyw/(<CR>v%"xyjoNOTIFY_DESTRUCTOR(5, "<ESC>"ypA")<ESC>:nohls<CR>0
 
+" S-UP move the current line up
+noremap <S-UP> ddkP
+inoremap <S-UP> <ESC>ddkPi
+
+" S-DOWN move the current line down
+noremap <S-DOWN> ddp
+inoremap <S-DOWN> <ESC>ddpi
+
 
 " Delete complete buffer
 noremap <c-d> 1GdG
